@@ -8,11 +8,14 @@ const CAROUSEL_PORT = process.env.CAROUSEL_PORT || 50002
 const ABOUT_PORT = process.env.ABOUT_PORT || 50001
 const REVIEWS_PORT = process.env.REVIEWS_PORT || 50000
 
-const REVIEWS_HOSTNAME = 'ec2-3-135-64-232.us-east-2.compute.amazonaws.com' || 'localhost'
+const BOOKING_HOSTNAME = process.env.BOOKING_HOSTNAME || 'localhost'
+const CAROUSEL_HOSTNAME = process.env.CAROUSEL_HOSTNAME || 'localhost'
+const ABOUT_HOSTNAME = process.env.ABOUT_HOSTNAME || 'localhost'
+const REVIEWS_HOSTNAME = process.env.REVIEWS_HOSTNAME || 'localhost'
 
 app.use(express.json());
 
-app.use('/:id', express.static(__dirname + '/public'));
+// app.use('/:id', express.static(__dirname + '/public'));
 
 const static = `<!DOCTYPE html>
 <html lang="en">
@@ -24,14 +27,16 @@ const static = `<!DOCTYPE html>
     <title>HRR43 FEC TeamHan!</title>
   </head>
   <body>
-    <div id="booking"></div>
-    <div id="carousel"></div>
-    <div id="about"></div>
+    <div>
+      <div id="booking" style={{display: 'inline-block', float: 'left'}}></div>
+      <div id="carousel" style={{display: 'inline-block', float: 'right' }}></div>
+    <div>
+    <div id="about" style={{float: 'left'}}></div>
     <div id="reviews"></div>
-    <script src="http://localhost:${BOOKING_PORT}/bundle.js" ></script>
-    <script src="http://localhost:${CAROUSEL_PORT}/bundle.js" ></script>
+    <script src="http://${BOOKING_HOSTNAME}:${BOOKING_PORT}/bundle.js" ></script>
+    <script src="http://${CAROUSEL_HOSTNAME}:${CAROUSEL_PORT}/bundle.js" ></script>
     <script src="http://${REVIEWS_HOSTNAME}:${REVIEWS_PORT}/bundle.js" ></script>
-    <script src="http://localhost:${ABOUT_PORT}/bundle.js" ></script>
+    <script src="http://${ABOUT_HOSTNAME}:${ABOUT_PORT}/bundle.js" ></script>
   </body>
 </html>`
 
